@@ -9,8 +9,9 @@ app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
 
+app.use('/api/movies', movieRouter);
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {
-    console.log('Listening on port: ', port);
+  console.log('Listening on port: ', port);
 });
