@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MovieList from '../MovieList/MovieList';
 
 class Home extends Component {
   componentDidMount() {
@@ -12,25 +13,11 @@ class Home extends Component {
       <div>
         <h1>This is the home page.</h1>
         <ul>
-          {this.props.movies.map((movie, index) => {
-            return (
-              <li>
-                {movie.title}
-                {movie.description}
-                <img src={movie.poster} alt={`post for ${movie.title}`} />
-              </li>
-            );
-          })}
+          <MovieList movies={this.props.movies} />
         </ul>
       </div>
     );
   }
 }
 
-const mapStoreToProps = (store) => {
-  return {
-    movies: store.movies,
-  };
-};
-
-export default connect(mapStoreToProps)(Home);
+export default connect()(Home);
