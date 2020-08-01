@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class MovieListItem extends Component {
+  openDetails = (id) => (event) => {
+    console.log('opening the details for this item:', this, id);
+  };
+
   render() {
     return (
       <div className="container">
         <li>
           <h1>{this.props.movie.title}</h1>
-          <img
-            src={this.props.movie.poster}
-            alt={`post for ${this.props.movie.title}`}
-          />
+          <Link to="/details/:id">
+            <img
+              onClick={this.openDetails(this.props.id)}
+              src={this.props.movie.poster}
+              alt={`post for ${this.props.movie.title}`}
+            />
+          </Link>
           <br />
           {this.props.movie.description}
         </li>
@@ -18,4 +27,4 @@ class MovieListItem extends Component {
   }
 }
 
-export default MovieListItem;
+export default connect()(MovieListItem);

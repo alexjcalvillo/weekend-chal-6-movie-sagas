@@ -5,9 +5,9 @@ import MovieListItem from '../MovieListItem/MovieListItem';
 class MovieList extends Component {
   render() {
     return (
-      <div className="List-container">
+      <div>
         {this.props.movies.map((movie, index) => {
-          return <MovieListItem key={movie.id} movie={movie} />;
+          return <MovieListItem key={movie.id} movie={movie} id={movie.id} />;
         })}
       </div>
     );
