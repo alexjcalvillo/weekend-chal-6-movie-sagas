@@ -16,6 +16,7 @@ import createSagaMiddleware from 'redux-saga';
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('GET_MOVIES', getMovies);
+  yield takeEvery('GET_DETAILS', getMovieDetails);
 }
 
 // Declare sagas
@@ -28,6 +29,19 @@ function* getMovies(action) {
     });
   } catch (err) {
     alert(`Try again later. ${err}`);
+  }
+}
+
+// for the details page to join genres with movies
+function* getMovieDetails(action) {
+  try {
+    const response = yield axios.get(`/api/movies/details/${action.payload}`);
+    yield put({
+      type: 'SET_GENRES',
+      payload: response.data,
+    });
+  } catch (err) {
+    alert(`Nope that didn't work. ${err}`);
   }
 }
 

@@ -18,4 +18,23 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/details/:id', (req, res) => {
+  const id = req.params.id;
+  const query = `SELECT "genres"."name", movies.title FROM genres
+  JOIN movies_genres ON genres.id = movies_genres.genre_id
+  JOIN movies ON movies.id = movies_genres.movies_id
+  WHERE movies.id=$1;`;
+
+  pool
+    .query(query, [id])
+    .then((dbResponse) => {
+      const details = dbResponse.rows;
+      res.send(details);
+    })
+    .catch((err) => {
+      console.log(`That won't work ${err}`);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;

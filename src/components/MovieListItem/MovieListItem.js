@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 class MovieListItem extends Component {
   openDetails = (id) => (event) => {
-    console.log('opening the details for this item:', this, id);
+    console.log('opening the details for this item:', id);
+    this.props.dispatch({
+      type: 'GET_DETAILS',
+      payload: id,
+    });
   };
 
   render() {
@@ -12,7 +16,7 @@ class MovieListItem extends Component {
       <div className="container">
         <li>
           <h1>{this.props.movie.title}</h1>
-          <Link to="/details/:id">
+          <Link to={`/details/${this.props.id}`}>
             <img
               onClick={this.openDetails(this.props.id)}
               src={this.props.movie.poster}
