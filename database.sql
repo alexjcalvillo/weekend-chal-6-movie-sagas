@@ -55,3 +55,12 @@ VALUES
 ('Science Fiction'),
 ('Space-Opera'),
 ('Superhero');
+
+
+-- junction table for movies and genres to match up
+INSERT INTO "movies_genres" ("movies_id", "genre_id")
+VALUES (1, 7), (1, 11), (2, 9), (2, 8), (2, 10), (3, 13),
+(4, 1), (4, 2), (5, 6), (6, 1), (6, 8), (7, 7), (7, 11),
+(8, 1), (8, 3), (8, 5), (9, 2), (9, 4), (10, 7), (10, 12),
+(11, 11), (12, 3), (12, 6), (13, 5), (13, 7), (13, 10),
+(14, 1), (14, 2), (14, 4);
