@@ -48,6 +48,12 @@ class EditMode extends Component {
   // capture edited fields and dispatch for server/db update
   clickSave = () => {
     console.log('in clickSave');
+    if (
+      this.state.movieUpdated.title === '' ||
+      this.state.movieUpdated.description === ''
+    ) {
+      this.state.movieUpdated = this.state.movie;
+    }
     this.updateMovie();
     this.props.history.push(`/`);
   };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MovieList from '../MovieList/MovieList';
+import MovieList from '../../MovieList/MovieList';
 
 class Home extends Component {
   componentDidMount() {
