@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './Details.css';
 
 class Details extends Component {
   state = {
@@ -18,7 +19,6 @@ class Details extends Component {
         currentMovie = movie;
       }
     }
-    console.log(currentMovie);
     this.setState({
       movie: currentMovie,
     });
@@ -32,16 +32,32 @@ class Details extends Component {
   render() {
     const genresArray = this.state.movie.genres
       ? this.state.movie.genres.map((item, index) => {
-          return <div key={index}>{item}</div>;
+          return <li key={index}>{item}</li>;
         })
       : [];
     return (
       <div>
-        <h1>Welcome to the details page!</h1>
         <h1>{this.state.movie.title}</h1>
-        <img src={this.state.movie.poster} />
-        <h5>Genres: {genresArray}</h5>
-        <button onClick={this.clickEdit}>Edit</button>
+        <div className="container-detail">
+          <div className="row">
+            <div className="col-lg-4">
+              <img
+                src={this.state.movie.poster}
+                alt={`a poster cover for the movie ${this.state.movie.title}`}
+              />
+              <ul>
+                Genres:
+                {genresArray}
+              </ul>
+            </div>
+            <div className="col-lg-6">
+              <div className="genre-list">
+                <p>{this.state.movie.description}</p>
+              </div>
+              <button onClick={this.clickEdit}>Edit</button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

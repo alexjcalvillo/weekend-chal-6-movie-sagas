@@ -11,5 +11,5 @@ li {
 
 img {
   max-width: 100%;
-  display: inline;
+  display: inline-block;
 }
