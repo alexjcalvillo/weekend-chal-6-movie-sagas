@@ -1,0 +1,19 @@
+.title {
+  padding: 15px 5px;
+  background-color: #3a3535;
+  color: white;
+  border-bottom: 1px solid black;
+}
+
+.genre-list {
+  padding: 0 5px;
+  display: inline-block;
+}
+
+.containerDetail {
+  overflow: hidden;
+  height: auto;
+  margin: auto;
+  width: 50%;
+  background-color: whitesmoke;
+}

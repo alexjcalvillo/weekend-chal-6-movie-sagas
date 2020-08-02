@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Details.css';
+import { withRouter } from 'react-router-dom';
+import styles from './Details.module.css';
 
 class Details extends Component {
   state = {
@@ -24,10 +25,10 @@ class Details extends Component {
     });
   }
 
-  clickEdit() {
+  clickEdit = () => {
     console.log('in click edit');
-    this.props.history.push('/editmode');
-  }
+    this.props.history.push(`/editmode/${this.state.movie.id}`);
+  };
 
   render() {
     const genresArray = this.state.movie.genres
@@ -37,25 +38,23 @@ class Details extends Component {
       : [];
     return (
       <div>
-        <h1>{this.state.movie.title}</h1>
-        <div className="container-detail">
-          <div className="row">
-            <div className="col-lg-4">
-              <img
-                src={this.state.movie.poster}
-                alt={`a poster cover for the movie ${this.state.movie.title}`}
-              />
-              <ul>
-                Genres:
-                {genresArray}
-              </ul>
+        <div className={styles.containerDetail}>
+          <div className={styles.title}>
+            <h1>{this.state.movie.title}</h1>
+          </div>
+          <div className={styles.row}>
+            <img
+              src={this.state.movie.poster}
+              alt={`a poster cover for the movie ${this.state.movie.title}`}
+            />
+            <ul>
+              Genres:
+              {genresArray}
+            </ul>
+            <div className="genre-list">
+              <p>{this.state.movie.description}</p>
             </div>
-            <div className="col-lg-6">
-              <div className="genre-list">
-                <p>{this.state.movie.description}</p>
-              </div>
-              <button onClick={this.clickEdit}>Edit</button>
-            </div>
+            <button onClick={this.clickEdit}>Edit</button>
           </div>
         </div>
       </div>
