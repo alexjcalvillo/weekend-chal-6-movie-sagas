@@ -17,3 +17,35 @@
   width: 50%;
   background-color: whitesmoke;
 }
+
+.savetext {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.iconbtn {
+  background-color: #c6c1c1d7;
+  margin: 0 0 5px 5px;
+  padding: 0px 10px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  border: none;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+.iconbtn:hover {
+  background-color: #a19b9bd7;
+}
+
+.titleedit {
+  width: 150px;
+  height: 25px;
+}
+
+.textareaEdit {
+  vertical-align: top;
+  width: 80%;
+  height: 150px;
+}

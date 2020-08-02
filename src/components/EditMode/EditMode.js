@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styles from './EditMode.module.css';
 
+// import Material-UI Assets
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
+
 class EditMode extends Component {
   state = {
     movie: this.props.movies[this.props.match.params.id],
@@ -10,6 +14,7 @@ class EditMode extends Component {
     movieUpdated: {
       title: '',
       description: '',
+      id: this.props.match.params.id,
     },
   };
   componentDidMount() {
@@ -44,13 +49,13 @@ class EditMode extends Component {
   clickSave = () => {
     console.log('in clickSave');
     this.updateMovie();
-    this.props.history.push('/');
+    this.props.history.push(`/`);
   };
 
   updateMovie() {
     this.props.dispatch({
       type: 'UPDATE_MOVIE',
-      payload: { ...this.state.movieUpdated, id: this.state.movie.id },
+      payload: this.state.movieUpdated,
     });
   }
 
@@ -61,6 +66,7 @@ class EditMode extends Component {
           <div className={styles.title}>
             <h1>
               <input
+                className={styles.titleedit}
                 type="text"
                 placeholder="title"
                 onChange={this.handleChange('title')}
@@ -74,14 +80,22 @@ class EditMode extends Component {
             />
             <ul>
               <li>
-                Description:{' '}
+                <label htmlFor="description">Description: </label>
                 <textarea
+                  id="description"
+                  className={styles.textareaEdit}
                   onChange={this.handleChange('description')}
                 ></textarea>
               </li>
             </ul>
-            <button onClick={this.clickCancel}>Cancel Changes</button>
-            <button onClick={this.clickSave}>Save Changes</button>
+            <button className={styles.iconbtn} onClick={this.clickCancel}>
+              <CancelIcon fontSize="small" />
+              <span className="save-text">Cancel</span>
+            </button>
+            <button className={styles.iconbtn} onClick={this.clickSave}>
+              <SaveIcon fontSize="small" />
+              Save
+            </button>
           </div>
         </div>
       </div>
