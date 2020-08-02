@@ -5,7 +5,12 @@
   border-bottom: 1px solid black;
 }
 
-.genre-list {
+.genreList > * {
+  display: inline;
+  padding-left: 10px;
+}
+
+.description {
   padding: 0 5px;
   display: inline-block;
 }

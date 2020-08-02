@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
     });
 });
 
+// use to pull complete movie information including genres agg on the obj
 router.get('/complete', (req, res) => {
   const query = `SELECT movies.id, movies.title, movies.poster, movies.description, array_agg(genres.name) as genres FROM genres
   JOIN movies_genres ON genres.id = movies_genres.genre_id
@@ -32,6 +33,23 @@ router.get('/complete', (req, res) => {
     })
     .catch((err) => {
       console.log(`That won't work ${err}`);
+      res.sendStatus(500);
+    });
+});
+
+router.put('/update/:id', (req, res) => {
+  const id = req.params.id;
+  const updateInfo = req.body;
+  const query = `UPDATE movies SET title=$1, description=$2 WHERE id=$3;`;
+
+  pool
+    .query(query, [updateInfo.title, updateInfo.description, updateInfo.id])
+    .then((dbResponse) => {
+      console.log(dbResponse);
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
       res.sendStatus(500);
     });
 });

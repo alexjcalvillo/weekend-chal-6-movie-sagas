@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import styles from './Details.module.css';
 
 class Details extends Component {
@@ -10,9 +9,7 @@ class Details extends Component {
     },
   };
   componentDidMount() {
-    console.log(this.props.match.params.id);
     const currentId = Number(this.props.match.params.id);
-    console.log(currentId);
 
     let currentMovie = {};
     for (let movie of this.props.movies) {
@@ -22,6 +19,9 @@ class Details extends Component {
     }
     this.setState({
       movie: currentMovie,
+    });
+    this.props.dispatch({
+      type: 'GET_MOVIES',
     });
   }
 
@@ -33,7 +33,7 @@ class Details extends Component {
   render() {
     const genresArray = this.state.movie.genres
       ? this.state.movie.genres.map((item, index) => {
-          return <li key={index}>{item}</li>;
+          return <p key={index}>{item}</p>;
         })
       : [];
     return (
@@ -47,11 +47,11 @@ class Details extends Component {
               src={this.state.movie.poster}
               alt={`a poster cover for the movie ${this.state.movie.title}`}
             />
-            <ul>
-              Genres:
+            <div className={styles.genreList}>
+              <h3>Genres:</h3>
               {genresArray}
-            </ul>
-            <div className="genre-list">
+            </div>
+            <div className={styles.description}>
               <p>{this.state.movie.description}</p>
             </div>
             <button onClick={this.clickEdit}>Edit</button>

@@ -16,6 +16,7 @@ import createSagaMiddleware from 'redux-saga';
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('GET_MOVIES', getMovies);
+  yield takeEvery('UPDATE_MOVIE', updateMovieDetails);
   // yield takeEvery('GET_COMPLETE', getMovieDetails);
 }
 
@@ -26,6 +27,17 @@ function* getMovies(action) {
     yield put({
       type: 'SET_MOVIES',
       payload: response.data,
+    });
+  } catch (err) {
+    alert(`Try again later. ${err}`);
+  }
+}
+
+function* updateMovieDetails(action) {
+  try {
+    yield axios.put(`/api/movies/update/${action.payload.id}`, action.payload);
+    yield put({
+      type: 'GET_MOVIES',
     });
   } catch (err) {
     alert(`Try again later. ${err}`);

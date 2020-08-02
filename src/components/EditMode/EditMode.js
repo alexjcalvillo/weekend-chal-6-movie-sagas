@@ -4,17 +4,16 @@ import styles from './EditMode.module.css';
 
 class EditMode extends Component {
   state = {
-    movie: {
-      genres: [],
-    },
+    movie: this.props.movies[this.props.match.params.id],
+    // new movie state for the PUT changes to database while
+    // maintaining the poster on the screen
     movieUpdated: {
       title: '',
+      description: '',
     },
   };
   componentDidMount() {
-    console.log(this.props.match.params.id);
     const currentId = Number(this.props.match.params.id);
-    console.log(currentId);
 
     let currentMovie = {};
     for (let movie of this.props.movies) {
@@ -22,33 +21,40 @@ class EditMode extends Component {
         currentMovie = movie;
       }
     }
-    this.setState(
-      {
-        movie: currentMovie,
-      },
-      () => {
-        console.log(this.state.movie);
-      }
-    );
+    this.setState({
+      movie: currentMovie,
+    });
   }
 
+  // currying to handle both input for title and textarea for description
   handleChange = (fieldKey) => (event) => {
     this.setState({
       movieUpdated: {
+        ...this.state.movieUpdated,
         [fieldKey]: event.target.value,
       },
     });
   };
 
+  clickCancel = () => {
+    this.props.history.goBack();
+  };
+
+  // capture edited fields and dispatch for server/db update
   clickSave = () => {
     console.log('in clickSave');
+    this.updateMovie();
+    this.props.history.push('/');
   };
+
+  updateMovie() {
+    this.props.dispatch({
+      type: 'UPDATE_MOVIE',
+      payload: { ...this.state.movieUpdated, id: this.state.movie.id },
+    });
+  }
+
   render() {
-    const genresArray = this.state.movie.genres
-      ? this.state.movie.genres.map((item, index) => {
-          return <li key={index}>{item}</li>;
-        })
-      : [];
     return (
       <div>
         <div className={styles.containerDetail}>
@@ -74,6 +80,7 @@ class EditMode extends Component {
                 ></textarea>
               </li>
             </ul>
+            <button onClick={this.clickCancel}>Cancel Changes</button>
             <button onClick={this.clickSave}>Save Changes</button>
           </div>
         </div>

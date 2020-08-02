@@ -19,6 +19,7 @@ class MovieListItem extends Component {
             alt={`post for ${this.props.movie.title}`}
           />
         </div>
+        <p className="description">{this.props.movie.description}</p>
       </div>
     );
   }
