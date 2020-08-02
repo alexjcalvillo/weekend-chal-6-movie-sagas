@@ -16,13 +16,13 @@ import createSagaMiddleware from 'redux-saga';
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('GET_MOVIES', getMovies);
-  yield takeEvery('GET_DETAILS', getMovieDetails);
+  // yield takeEvery('GET_COMPLETE', getMovieDetails);
 }
 
 // Declare sagas
 function* getMovies(action) {
   try {
-    const response = yield axios.get('/api/movies');
+    const response = yield axios.get('/api/movies/complete');
     yield put({
       type: 'SET_MOVIES',
       payload: response.data,
@@ -33,17 +33,17 @@ function* getMovies(action) {
 }
 
 // for the details page to join genres with movies
-function* getMovieDetails(action) {
-  try {
-    const response = yield axios.get(`/api/movies/details/${action.payload}`);
-    yield put({
-      type: 'SET_GENRES',
-      payload: response.data,
-    });
-  } catch (err) {
-    alert(`Nope that didn't work. ${err}`);
-  }
-}
+// function* getMovieDetails(action) {
+//   try {
+//     const response = yield axios.get(`/api/movies/complete`);
+//     yield put({
+//       type: 'SET_MOVIES',
+//       payload: response.data,
+//     });
+//   } catch (err) {
+//     alert(`Nope that didn't work. ${err}`);
+//   }
+// }
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

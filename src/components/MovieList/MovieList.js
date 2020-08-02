@@ -7,7 +7,13 @@ class MovieList extends Component {
     return (
       <div>
         {this.props.movies.map((movie, index) => {
-          return <MovieListItem key={movie.id} movie={movie} id={movie.id} />;
+          return (
+            <MovieListItem
+              key={index}
+              movie={movie}
+              openDetails={this.props.openDetails}
+            />
+          );
         })}
       </div>
     );

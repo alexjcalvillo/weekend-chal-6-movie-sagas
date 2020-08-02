@@ -8,11 +8,20 @@ class Home extends Component {
       type: 'GET_MOVIES',
     });
   }
+
+  openDetails = (id) => (event) => {
+    console.log('opening the details for this item:', id);
+    this.props.history.push(`/details/${id}`);
+  };
+
   render() {
     return (
       <div>
         <ul>
-          <MovieList movies={this.props.movies} />
+          <MovieList
+            movies={this.props.movies}
+            openDetails={this.openDetails}
+          />
         </ul>
       </div>
     );

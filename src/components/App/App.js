@@ -7,6 +7,7 @@ import Details from '../Details/Details';
 
 // import stuff we need
 import { HashRouter as Router, Route } from 'react-router-dom';
+import EditMode from '../EditMode/EditMode';
 
 class App extends Component {
   // Renders the entire app on the DOM
@@ -15,7 +16,8 @@ class App extends Component {
       <div className="App">
         <Router>
           <Route exact path="/" component={Home} />
-          <Route exact path="/details/:id" component={Details} />
+          <Route path="/details/:id" component={Details} />
+          <Route path="/editmode" component={EditMode} />
         </Router>
       </div>
     );

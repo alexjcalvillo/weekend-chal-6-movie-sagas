@@ -18,15 +18,14 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/details/:id', (req, res) => {
-  const id = req.params.id;
-  const query = `SELECT "genres"."name", movies.title FROM genres
+router.get('/complete', (req, res) => {
+  const query = `SELECT movies.id, movies.title, movies.poster, movies.description, array_agg(genres.name) as genres FROM genres
   JOIN movies_genres ON genres.id = movies_genres.genre_id
   JOIN movies ON movies.id = movies_genres.movies_id
-  WHERE movies.id=$1;`;
+ GROUP BY movies.id ORDER BY movies.id;`;
 
   pool
-    .query(query, [id])
+    .query(query)
     .then((dbResponse) => {
       const details = dbResponse.rows;
       res.send(details);

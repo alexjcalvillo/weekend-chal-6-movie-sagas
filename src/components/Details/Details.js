@@ -1,40 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MovieListItem from '../MovieListItem/MovieListItem';
 
 class Details extends Component {
+  state = {
+    movie: {
+      genres: [],
+    },
+  };
   componentDidMount() {
-    this.getInfo();
+    console.log(this.props.match.params.id);
+    const currentId = Number(this.props.match.params.id);
+    console.log(currentId);
+
+    let currentMovie = {};
+    for (let movie of this.props.movies) {
+      if (currentId === movie.id) {
+        currentMovie = movie;
+      }
+    }
+    console.log(currentMovie);
+    this.setState({
+      movie: currentMovie,
+    });
   }
 
-  getInfo() {
-    this.props.dispatch({
-      type: 'GET_DETAILS',
-      payload: this.props.match.params.id,
-    });
-    this.props.dispatch({
-      type: 'GET_MOVIES',
-    });
+  clickEdit() {
+    console.log('in click edit');
+    this.props.history.push('/editmode');
   }
 
   render() {
-    const movieTitles = this.props.movies.map((movie, index) => {
-      return movie.title;
-    });
-    console.log(movieTitles);
-    const movie = this.props.movies.filter((movie, index) => {
-      return (movie.title = this.props.genres.title);
-    });
-    console.log(movie);
+    const genresArray = this.state.movie.genres
+      ? this.state.movie.genres.map((item, index) => {
+          return <div key={index}>{item}</div>;
+        })
+      : [];
     return (
       <div>
         <h1>Welcome to the details page!</h1>
-
-        <ul>
-          {this.props.genres.map((movie, index) => {
-            return <li key={index}>{movie.name}</li>;
-          })}
-        </ul>
+        <h1>{this.state.movie.title}</h1>
+        <img src={this.state.movie.poster} />
+        <h5>Genres: {genresArray}</h5>
+        <button onClick={this.clickEdit}>Edit</button>
       </div>
     );
   }
@@ -43,7 +50,6 @@ class Details extends Component {
 const mapStoreToProps = (store) => {
   return {
     movies: store.movies,
-    genres: store.genres,
   };
 };
 export default connect(mapStoreToProps)(Details);
