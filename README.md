@@ -30,21 +30,22 @@ A list of movies displayed on a home page. Clicking on the movie poster image wi
 ## Usage
 
 1. Open the client and look through the movies.
+2. Each movie has an image which can be clicked on to view extra details.
+3. From the details page the user can edit the information: movie title and movie description.
+4. There are buttons for navigation throughout the application.
 
 ## Built With
 
-List technologies and frameworks here
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-_Note, include this only if you have a license file. GitHub will generate one for you if you want!_
+- HTML
+- CSS
+- JavaScript
+- React
+- Node
+- Axios
+- Javascript
+- Express
+- Material-UI
 
 ## Acknowledgement
 
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality. (Thank your people)
-
-## Support
-
-If you have suggestions or issues, please email me at [youremail@whatever.com](www.google.com)
