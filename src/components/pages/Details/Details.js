@@ -6,40 +6,28 @@ import styles from './Details.module.css';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 class Details extends Component {
-  state = {
-    movie: {
-      genres: [],
-    },
-  };
   componentDidMount() {
-    const currentId = Number(this.props.match.params.id);
-
-    let currentMovie = {};
-    for (let movie of this.props.movies) {
-      if (currentId === movie.id) {
-        currentMovie = movie;
-      }
-    }
-    this.setState({
-      movie: currentMovie,
-    });
     this.props.dispatch({
-      type: 'GET_MOVIES',
+      type: 'GET_DETAILS',
+      payload: this.props.match.params.id,
     });
   }
 
   clickEdit = () => {
     console.log('in click edit');
-    this.props.history.push(`/editmode/${this.state.movie.id}`);
+    this.props.history.push(`/editmode/${this.props.currentMovie.id}`);
   };
 
   goBack = () => {
-    this.props.history.goBack();
+    this.props.dispatch({
+      type: 'CLEAR_CURRENT_MOVIE',
+    });
+    this.props.history.push('/');
   };
 
   render() {
-    const genresArray = this.state.movie.genres
-      ? this.state.movie.genres.map((item, index) => {
+    const genresArray = this.props.currentMovie.genres
+      ? this.props.currentMovie.genres.map((item, index) => {
           return <p key={index}>{item} | </p>;
         })
       : [];
@@ -51,19 +39,19 @@ class Details extends Component {
         </button>
         <div className={styles.containerDetail}>
           <div className={styles.title}>
-            <h1>{this.state.movie.title}</h1>
+            <h1>{this.props.currentMovie.title}</h1>
           </div>
           <div className={styles.row}>
             <img
-              src={this.state.movie.poster}
-              alt={`a poster cover for the movie ${this.state.movie.title}`}
+              src={this.props.currentMovie.poster}
+              alt={`a poster cover for the movie ${this.props.currentMovie.title}`}
             />
             <div className={styles.genreList}>
               <h3>Genres:</h3>
               {genresArray}
             </div>
             <div className={styles.description}>
-              <p>{this.state.movie.description}</p>
+              <p>{this.props.currentMovie.description}</p>
 
               <button className="btn" onClick={this.clickEdit}>
                 <svg
@@ -89,6 +77,7 @@ class Details extends Component {
 const mapStoreToProps = (store) => {
   return {
     movies: store.movies,
+    currentMovie: store.currentMovie,
   };
 };
 export default connect(mapStoreToProps)(Details);

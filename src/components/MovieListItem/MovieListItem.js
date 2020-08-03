@@ -8,9 +8,9 @@ class MovieListItem extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className="containerItem">
         <div className="movie-title">
-          <h1>{this.props.movie.title}</h1>
+          <h4>{this.props.movie.title}</h4>
         </div>
         <div className="movie-poster">
           <img
@@ -19,7 +19,7 @@ class MovieListItem extends Component {
             alt={`post for ${this.props.movie.title}`}
           />
         </div>
-        <p className="description">{this.props.movie.description}</p>
+        {/* <p className="description">{this.props.movie.description}</p> */}
       </div>
     );
   }

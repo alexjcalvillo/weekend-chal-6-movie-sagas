@@ -1,8 +1,11 @@
 .movie-title {
   margin: 0;
   padding: 15px;
+  height: 35px;
   background-color: #3a3535;
   color: white;
+  font-size: small;
+  align-content: center;
 }
 
 .description {

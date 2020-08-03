@@ -14,4 +14,9 @@ img {
   /* float: left; */
   display: inline-block;
   clear: both;
+  min-height: 100%;
+}
+
+h4 {
+  margin: 0;
 }

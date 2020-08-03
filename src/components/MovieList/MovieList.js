@@ -5,7 +5,7 @@ import MovieListItem from '../MovieListItem/MovieListItem';
 class MovieList extends Component {
   render() {
     return (
-      <div>
+      <div className="container">
         {this.props.movies.map((movie, index) => {
           return (
             <MovieListItem

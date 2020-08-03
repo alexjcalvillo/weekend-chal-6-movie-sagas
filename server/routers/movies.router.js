@@ -4,7 +4,7 @@ const router = express.Router();
 const pool = require('../modules/pool');
 
 router.get('/', (req, res) => {
-  const query = `SELECT * FROM movies;`;
+  const query = `SELECT * FROM movies ORDER BY movies.id;`;
 
   pool
     .query(query)
@@ -19,16 +19,16 @@ router.get('/', (req, res) => {
 });
 
 // use to pull complete movie information including genres agg on the obj
-router.get('/complete', (req, res) => {
+router.get('/details/:id', (req, res) => {
   const query = `SELECT movies.id, movies.title, movies.poster, movies.description, array_agg(genres.name) as genres FROM genres
   JOIN movies_genres ON genres.id = movies_genres.genre_id
   JOIN movies ON movies.id = movies_genres.movies_id
- GROUP BY movies.id ORDER BY movies.id;`;
+ WHERE movies.id=$1 GROUP BY movies.id ORDER BY movies.id;`;
 
   pool
-    .query(query)
+    .query(query, [req.params.id])
     .then((dbResponse) => {
-      const details = dbResponse.rows;
+      const details = dbResponse.rows[0];
       res.send(details);
     })
     .catch((err) => {

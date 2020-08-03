@@ -8,27 +8,23 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 class EditMode extends Component {
   state = {
-    movie: this.props.movies[this.props.match.params.id],
-    // new movie state for the PUT changes to database while
-    // maintaining the poster on the screen
     movieUpdated: {
       title: '',
       description: '',
-      id: this.props.match.params.id,
+      id: this.props.currentMovie.id,
     },
   };
   componentDidMount() {
-    const currentId = Number(this.props.match.params.id);
-
-    let currentMovie = {};
-    for (let movie of this.props.movies) {
-      if (currentId === movie.id) {
-        currentMovie = movie;
-      }
-    }
-    this.setState({
-      movie: currentMovie,
-    });
+    // const currentId = Number(this.props.match.params.id);
+    // let currentMovie = {};
+    // for (let movie of this.props.movies) {
+    //   if (currentId === movie.id) {
+    //     currentMovie = movie;
+    //   }
+    // }
+    // this.setState({
+    //   movie: currentMovie,
+    // });
   }
 
   // currying to handle both input for title and textarea for description
@@ -42,26 +38,21 @@ class EditMode extends Component {
   };
 
   clickCancel = () => {
-    this.props.history.goBack();
+    this.props.history.push(`/details/${this.props.currentMovie.id}`);
   };
 
   // capture edited fields and dispatch for server/db update
   clickSave = () => {
     console.log('in clickSave');
-    if (
-      this.state.movieUpdated.title === '' ||
-      this.state.movieUpdated.description === ''
-    ) {
-      this.state.movieUpdated = this.state.movie;
-    }
-    this.updateMovie();
-    this.props.history.push(`/`);
+    this.updateMovie(this.state.movieUpdated);
+    this.props.history.push(`/details/${this.props.currentMovie.id}`);
   };
 
-  updateMovie() {
+  updateMovie(newMovieDetails) {
+    console.log('newmovie', newMovieDetails);
     this.props.dispatch({
       type: 'UPDATE_MOVIE',
-      payload: this.state.movieUpdated,
+      payload: newMovieDetails,
     });
   }
 
@@ -76,13 +67,14 @@ class EditMode extends Component {
                 type="text"
                 placeholder="title"
                 onChange={this.handleChange('title')}
+                value={this.state.movieUpdated.title}
               />
             </h1>
           </div>
           <div className={styles.row}>
             <img
-              src={this.state.movie.poster}
-              alt={`a poster cover for the movie ${this.state.movie.title}`}
+              src={this.props.currentMovie.poster}
+              alt={`a poster cover for the movie ${this.props.currentMovie.title}`}
             />
             <ul>
               <li>
@@ -112,6 +104,7 @@ class EditMode extends Component {
 const mapStoreToProps = (store) => {
   return {
     movies: store.movies,
+    currentMovie: store.currentMovie,
   };
 };
 export default connect(mapStoreToProps)(EditMode);

@@ -17,13 +17,13 @@ import createSagaMiddleware from 'redux-saga';
 function* rootSaga() {
   yield takeEvery('GET_MOVIES', getMovies);
   yield takeEvery('UPDATE_MOVIE', updateMovieDetails);
-  // yield takeEvery('GET_COMPLETE', getMovieDetails);
+  yield takeEvery('GET_DETAILS', getMovieDetails);
 }
 
 // Declare sagas
 function* getMovies(action) {
   try {
-    const response = yield axios.get('/api/movies/complete');
+    const response = yield axios.get('/api/movies/');
     yield put({
       type: 'SET_MOVIES',
       payload: response.data,
@@ -45,17 +45,18 @@ function* updateMovieDetails(action) {
 }
 
 // for the details page to join genres with movies
-// function* getMovieDetails(action) {
-//   try {
-//     const response = yield axios.get(`/api/movies/complete`);
-//     yield put({
-//       type: 'SET_MOVIES',
-//       payload: response.data,
-//     });
-//   } catch (err) {
-//     alert(`Nope that didn't work. ${err}`);
-//   }
-// }
+function* getMovieDetails(action) {
+  try {
+    const response = yield axios.get(`/api/movies/details/${action.payload}`);
+
+    yield put({
+      type: 'SET_CURRENT_MOVIE',
+      payload: response.data,
+    });
+  } catch (err) {
+    alert(`Nope that didn't work. ${err}`);
+  }
+}
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -80,11 +81,23 @@ const genres = (state = [], action) => {
   }
 };
 
+const currentMovie = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_CURRENT_MOVIE':
+      return action.payload;
+    case 'CLEAR_CURRENT_MOVIE':
+      return {};
+    default:
+      return state;
+  }
+};
+
 // Create one store that all components can use
 const storeInstance = createStore(
   combineReducers({
     movies,
     genres,
+    currentMovie,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)
