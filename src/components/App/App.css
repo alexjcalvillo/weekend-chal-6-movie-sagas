@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
-@import url('~@sweetalert2/theme-minimal');
-
 .App {
   font-family: 'Open Sans', sans-serif;
 }
@@ -32,8 +30,15 @@
   height: 335px;
   margin: 25px;
   display: inline-block;
-  /* box-shadow: 3px 3px 6px; */
+  box-shadow: 3px 3px 6px;
   background-color: whitesmoke;
+}
+
+.containerItem:hover {
+  opacity: 0.3;
+  position: relative;
+  top: 5px;
+  cursor: pointer;
 }
 
 .btn {
