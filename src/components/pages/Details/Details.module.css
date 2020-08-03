@@ -48,6 +48,9 @@
 
 .backbtn:hover {
   background-color: #a19b9bd7;
+  padding-right: 26px;
+  padding-left: 10px;
+  transition: padding 0.3s ease 0.03s;
 }
 
 /* originally going to use flexbox to organize */
