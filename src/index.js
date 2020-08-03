@@ -13,6 +13,9 @@ import { takeEvery, put } from 'redux-saga/effects';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
 
+// sweetalert components
+import Swal from 'sweetalert2';
+
 // Create the rootSaga generator function
 function* rootSaga() {
   yield takeEvery('GET_MOVIES', getMovies);
@@ -40,7 +43,11 @@ function* updateMovieDetails(action) {
       type: 'GET_MOVIES',
     });
   } catch (err) {
-    alert(`Try again later. ${err}`);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: `Something went wrong! ${err}`,
+    });
   }
 }
 
@@ -54,7 +61,11 @@ function* getMovieDetails(action) {
       payload: response.data,
     });
   } catch (err) {
-    alert(`Nope that didn't work. ${err}`);
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: `Something went wrong! ${err}`,
+    });
   }
 }
 

@@ -10,7 +10,6 @@ class Home extends Component {
   }
 
   openDetails = (id) => (event) => {
-    console.log('opening the details for this item:', id);
     this.props.history.push(`/details/${id}`);
   };
 

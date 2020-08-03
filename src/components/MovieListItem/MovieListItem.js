@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import './MovieListItem.css';
 
 class MovieListItem extends Component {
-  componentDidMount() {
-    console.log(this.props.movie);
-  }
   render() {
     return (
       <div className="containerItem">

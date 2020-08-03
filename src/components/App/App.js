@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Swal from 'sweetalert2/src/sweetalert2.js';
+
 // import components to use on app
 import Home from '../pages/Home/Home';
 import Details from '../pages/Details/Details';

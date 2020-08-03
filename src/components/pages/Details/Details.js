@@ -14,7 +14,6 @@ class Details extends Component {
   }
 
   clickEdit = () => {
-    console.log('in click edit');
     this.props.history.push(`/editmode/${this.props.currentMovie.id}`);
   };
 
@@ -34,7 +33,7 @@ class Details extends Component {
     return (
       <div>
         <button className={styles.backbtn} onClick={this.goBack}>
-          <ArrowBackIcon />
+          <ArrowBackIcon fontSize="small" />
           Back
         </button>
         <div className={styles.containerDetail}>

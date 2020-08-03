@@ -43,13 +43,11 @@ class EditMode extends Component {
 
   // capture edited fields and dispatch for server/db update
   clickSave = () => {
-    console.log('in clickSave');
     this.updateMovie(this.state.movieUpdated);
     this.props.history.push(`/details/${this.props.currentMovie.id}`);
   };
 
   updateMovie(newMovieDetails) {
-    console.log('newmovie', newMovieDetails);
     this.props.dispatch({
       type: 'UPDATE_MOVIE',
       payload: newMovieDetails,

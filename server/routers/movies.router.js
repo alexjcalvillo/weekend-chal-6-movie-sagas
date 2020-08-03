@@ -45,7 +45,6 @@ router.put('/update/:id', (req, res) => {
   pool
     .query(query, [updateInfo.title, updateInfo.description, updateInfo.id])
     .then((dbResponse) => {
-      console.log(dbResponse);
       res.sendStatus(200);
     })
     .catch((err) => {
