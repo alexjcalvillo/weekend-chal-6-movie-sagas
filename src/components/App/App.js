@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 
 // import components to use on app
-import Home from '../Home/Home';
-import Details from '../Details/Details';
-import EditMode from '../EditMode/EditMode';
+import Home from '../pages/Home/Home';
+import Details from '../pages/Details/Details';
+import EditMode from '../pages/EditMode/EditMode';
 
 // import stuff we need
 import { HashRouter as Router, Route } from 'react-router-dom';
